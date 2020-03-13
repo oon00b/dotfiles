@@ -1,0 +1,22 @@
+[[plugins]]
+if = '''!has("nvim")'''
+repo = '''vim-jp/vimdoc-ja'''
+
+[[plugins]]
+if = '''!has("nvim")'''
+repo = '''roxma/vim-hug-neovim-rpc'''
+
+[[plugins]]
+if = '''!has("nvim")'''
+repo = '''roxma/nvim-yarp'''
+
+[[plugins]]
+repo = '''Shougo/deoplete.nvim'''
+hook_add = '''let g:deoplete#enable_at_startup = 1'''
+
+[[plugins]]
+repo = '''lifepillar/vim-solarized8'''
+hook_add = '''let g:solarized_italics = 0 | let g:solarized_visibility = "high"'''
+
+[[plugins]]
+repo = '''https://gitlab.com/HiPhish/info.vim.git'''

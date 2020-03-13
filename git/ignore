@@ -1,0 +1,23 @@
+*~
+tmp/
+.tmp/
+
+#macos
+._*
+.DS_Store
+.localized
+.CFUserTextEncoding
+.fseventsd
+.Spotlight-V100
+.metadata_never_index
+
+#vim, neovim
+[._]*.s[a-w][a-p]
+.s[a-w][a-p]
+[._]viminfo
+*.shada
+Session.vim
+Sessionx.vim
+.netrwhist
+.netrwbook
+rplugin.vim

@@ -1,0 +1,144 @@
+set encoding=utf-8
+
+set nolangremap
+
+set backspace=indent,eol,start
+
+set autoread
+set nofixendofline
+
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=-1
+
+set autoindent
+set smartindent
+
+set formatoptions+=j
+
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set tagcase=followscs
+
+set completeopt=menuone,preview,noinsert
+set wildignorecase
+
+set wildmenu
+set wildoptions=tagfile
+if has("nvim")
+    set wildoptions+=pum
+endif
+
+if has("termguicolors") && expand("$COLORTERM") =~# "truecolor\\|24bit"
+    set termguicolors
+
+    " popup menu transparency
+    if has("nvim")
+        set winblend=20
+        set pumblend=20
+    endif
+endif
+
+set cursorline
+set display=lastline
+set number
+set relativenumber
+
+" DECSCUSR(+ vertical, blinking)
+if !has("nvim") && &term =~? "xterm\\|konsole"
+    let &t_EI = "\e[2 q" " normal mode  = block
+    let &t_SI = "\e[5 q" " insert mode  = vertical, blinking
+    let &t_SR = "\e[4 q" " replace mode = horizontal
+endif
+set guicursor=n-v-c:block,i-ci-sm:ver1-blinkwait500-blinkon500-blinkoff500,r-cr-o:hor1
+
+set visualbell
+set belloff=all
+
+set list
+set listchars=tab:>.,trail:&
+
+" filename[modified][readonly]    [line/lines, column](\U"unicode")[filetype]
+set statusline=%f%m%r%=[%l/%L,\ %c](\\U%B)%y
+set laststatus=2
+set showcmd
+
+set title
+set titlestring=%f%m%r
+
+set splitright
+set helpheight=0
+set scrolloff=5
+
+set report=0
+set shortmess=aoOc
+
+set mouse=a
+set clipboard=unnamed
+
+set notimeout
+set ttimeout
+set ttimeoutlen=100
+
+set history=10000
+if !has("nvim")
+    set viminfo='0,<0,h
+else
+    set shada='0,<0,h
+endif
+
+" $VIMRUNTIME/plugin
+let g:loaded_2html_plugin = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_gzip = 1
+let g:loaded_logiPat = 1
+let g:loaded_rrhelper = 1
+let g:loaded_spellfile_plugin = 1
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
+
+" netrw.vim
+let g:netrw_keepdir = 0
+let g:netrw_liststyle = 3
+
+" man.vim, machit.vim
+if !has("nvim")
+    runtime ftplugin/man.vim
+    set keywordprg=:Man
+    autocmd FileType man setlocal nolist nonumber norelativenumber noswapfile
+
+    packadd! matchit
+endif
+
+" dein.vim <https://github.com/Shougo/dein.vim>
+let g:MY_DEIN_BASE_PATH = exists("$XDG_DATA_HOME") ? expand("$XDG_DATA_HOME/dein") : expand("$HOME/.local/share/dein")
+let g:MY_DEIN_TOML_DIR = exists("$XDG_CONFIG_HOME") ? expand("$XDG_CONFIG_HOME/dein") : expand("$HOME/.config/dein")
+
+let &runtimepath ..= "," .. g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim"
+
+let g:dein#auto_recache = 1
+if dein#load_state(g:MY_DEIN_BASE_PATH)
+    call dein#begin(g:MY_DEIN_BASE_PATH, expand("<sfile>", 0, 1) + expand(g:MY_DEIN_TOML_DIR .. "/*.toml", 0, 1))
+    call dein#add(g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim")
+
+    call dein#load_toml(g:MY_DEIN_TOML_DIR .. "/dein.toml")
+
+    call dein#end()
+    call dein#save_state()
+endif
+
+set background=dark
+colorscheme solarized8
+
+filetype plugin indent on
+syntax enable
+
+set nomodeline
+set secure
