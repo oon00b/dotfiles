@@ -47,7 +47,7 @@ set display=lastline
 set number
 set relativenumber
 
-" DECSCUSR(+ vertical, blinking)
+" DECSCUSR(+ vertical, blinking) <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Functions-using-CSI-_-ordered-by-the-final-character_s_>
 if !has("nvim") && &term =~? "xterm\\|konsole"
     let &t_EI = "\e[2 q" " normal mode  = block
     let &t_SI = "\e[5 q" " insert mode  = vertical, blinking

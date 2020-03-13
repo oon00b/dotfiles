@@ -68,7 +68,7 @@ my_chpwd_autols()
 }
 add-zsh-hook -Uz chpwd my_chpwd_autols
 
-# OSC 2 ; Pt BEL (change window title to Pt)
+# OSC 2 ; Pt BEL (change window title to Pt) <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands>
 if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
     my_precmd_setwindowtitle()
     {
