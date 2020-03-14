@@ -38,7 +38,6 @@ setopt SHARE_HISTORY
 # Input/Output
 setopt NO_CLOBBER
 setopt CORRECT
-setopt CORRECT_ALL
 setopt IGNORE_EOF
 setopt PRINT_EXIT_VALUE
 
