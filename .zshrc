@@ -49,7 +49,15 @@ setopt COMBINING_CHARS
 
 ### alias
 
-alias ls="ls -A -F"
+if ls --color=auto >| "/dev/null" 2>&1 ; then
+    # Gnu ls
+    alias ls="ls -A -F --color=auto"
+elif ls -G >| "/dev/null" 2>&1 ; then
+    # BSD ls
+    alias ls="ls -A -F -G"
+else
+    alias ls="ls -A -F"
+fi
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
