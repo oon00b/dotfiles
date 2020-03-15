@@ -13,5 +13,5 @@
 
 ## install
 ```
-git clone "https://github.com/oon00b/dotfiles" && sh "./dotfiles/install.sh"
+git clone "https://github.com/oon00b/dotfiles.git" && sh "./dotfiles/install.sh"
 ```

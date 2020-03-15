@@ -1,19 +1,3 @@
-### Env
-
-# prompt ("currentdir " + UID == 0 ? "[#] " : "")
-export PS1="%c %(!.[#] .)"
-
-# history
-[[ "${HISTFILE}" ]] || export HISTFILE="${HOME}/.zsh_history"
-export HISTSIZE=10000
-export SAVEHIST=10000
-
-# editor, pager
-export EDITOR="vim"
-export VISUAL="vim"
-export PAGER="vim -M -R -n -"
-export MANPAGER="vim -M +MANPAGER -"
-
 ### Options
 
 # Changing Directories
@@ -47,10 +31,26 @@ setopt APPEND_CREATE
 # Zle
 setopt COMBINING_CHARS
 
+### Env
+
+# prompt ("currentdir " + UID == 0 ? "[#] " : "")
+export PS1="%U%c%u %(!.%F{red}[#]%f{red} .)"
+
+# history
+[[ -n "${HISTFILE}" ]] || export HISTFILE="${HOME}/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
+
+# editor, pager
+export EDITOR="vim"
+export VISUAL="vim"
+export PAGER="vim -M -R -n -"
+export MANPAGER="vim -M +MANPAGER -"
+
 ### alias
 
 if ls --color=auto >| "/dev/null" 2>&1 ; then
-    # Gnu ls
+    # GNU ls
     alias ls="ls -A -F --color=auto"
 elif ls -G >| "/dev/null" 2>&1 ; then
     # BSD ls
@@ -80,14 +80,14 @@ if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
     my_precmd_setwindowtitle()
     {
         # set window title to PWD
-        print -n -P "\033]2;\"%~\"\007"
+        print -n -P "\033]2;%~\007"
     }
     add-zsh-hook -Uz precmd my_precmd_setwindowtitle
 
     my_preexec_setwindowtitle()
     {
         # set window title to executing command and argments
-        print -n "\033]2;\"${3}\"\007"
+        print -n "\033]2;${3}\007"
     }
     add-zsh-hook -Uz preexec my_preexec_setwindowtitle
 fi
