@@ -33,8 +33,8 @@ setopt COMBINING_CHARS
 
 ### Env
 
-# prompt ("currentdir " + UID == 0 ? "[#] " : "")
-export PS1="%U%c%u %(!.%F{red}[#]%f{red} .)"
+# prompt ("currentdir " + UID == 0 ? "# " : "")
+export PS1="%U%c%u %(!.%F{red}#%f .)"
 
 # history
 [[ -n "${HISTFILE}" ]] || export HISTFILE="${HOME}/.zsh_history"
@@ -44,8 +44,11 @@ export SAVEHIST=10000
 # editor, pager
 export EDITOR="vim"
 export VISUAL="vim"
-export PAGER="vim -M -R -n -"
+#export PAGER="vim -M -R -n -"
 export MANPAGER="vim -M +MANPAGER -"
+
+# color
+export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;47:ow=30;43:st=30;42:"
 
 ### alias
 
@@ -55,6 +58,7 @@ if ls --color=auto >| "/dev/null" 2>&1 ; then
 elif ls -G >| "/dev/null" 2>&1 ; then
     # BSD ls
     alias ls="ls -A -F -G"
+    export LSCOLORS="exfxgxcxbxagaehbabahad"
 else
     alias ls="ls -A -F"
 fi
