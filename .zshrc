@@ -44,11 +44,11 @@ export SAVEHIST=10000
 # editor, pager
 export EDITOR="vim"
 export VISUAL="vim"
-#export PAGER="vim -M -R -n -"
 export MANPAGER="vim -M +MANPAGER -"
 
 # color
 export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;47:ow=30;43:st=30;42:"
+export LSCOLORS="exfxgxcxbxagaehbabahad"
 
 ### alias
 
@@ -58,7 +58,6 @@ if ls --color=auto >| "/dev/null" 2>&1 ; then
 elif ls -G >| "/dev/null" 2>&1 ; then
     # BSD ls
     alias ls="ls -A -F -G"
-    export LSCOLORS="exfxgxcxbxagaehbabahad"
 else
     alias ls="ls -A -F"
 fi
@@ -95,3 +94,12 @@ if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
     }
     add-zsh-hook -Uz preexec my_preexec_setwindowtitle
 fi
+
+### Zle
+
+# <https://invisible-island.net/xterm/xterm.faq.html#xterm_arrows>
+bindkey "${terminfo[cuu1]}" history-search-backward
+bindkey "${terminfo[cud1]}" history-search-forward
+bindkey "^A" backward-word
+bindkey "^Z" forward-word
+bindkey "^B" beginning-of-line

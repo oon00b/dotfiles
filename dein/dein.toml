@@ -16,7 +16,10 @@ hook_add = '''let g:deoplete#enable_at_startup = 1'''
 
 [[plugins]]
 repo = '''lifepillar/vim-solarized8'''
-hook_add = '''let g:solarized_italics = 0 | let g:solarized_visibility = "high"'''
+hook_add = '''
+let g:solarized_italics = 0
+let g:solarized_visibility = "high"'''
 
 [[plugins]]
 repo = '''https://gitlab.com/HiPhish/info.vim.git'''
+hook_add = '''autocmd FileType info setlocal nonumber norelativenumber'''

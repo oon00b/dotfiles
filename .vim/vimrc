@@ -140,5 +140,11 @@ colorscheme solarized8
 filetype plugin indent on
 syntax enable
 
+" keybind
+map! <C-A> <S-Left>
+map! <C-Z> <S-Right>
+map! <C-B> <Home>
+map! <C-E> <End>
+
 set nomodeline
 set secure
