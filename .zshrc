@@ -98,8 +98,8 @@ fi
 ### Zle
 
 # <https://invisible-island.net/xterm/xterm.faq.html#xterm_arrows>
-bindkey "${terminfo[cuu1]}" history-search-backward
-bindkey "${terminfo[cud1]}" history-search-forward
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
 bindkey "^A" backward-word
 bindkey "^Z" forward-word
 bindkey "^B" beginning-of-line
