@@ -146,5 +146,7 @@ map! <C-Z> <S-Right>
 map! <C-B> <Home>
 map! <C-E> <End>
 
+autocmd FileType man nmap <buffer> <2-LeftMouse> K
+
 set nomodeline
 set secure

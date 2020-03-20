@@ -70,6 +70,18 @@ alias mv="mv -i"
 autoload -Uz compinit add-zsh-hook
 compinit
 
+### completion
+
+zstyle ":completion:*" ignore-parents "parent" "pwd"
+zstyle ":completion:*" squeeze-slashes "true"
+zstyle ":completion:*" list-separator ""
+zstyle ":completion:*" list-colors "${LS_COLORS}"
+zstyle ":completion:*:descriptions" format "%F{green}-- %d --%f"
+zstyle ":completion:*:messages" format "%F{yellow}%U%d%u%f"
+zstyle ":completion:*:warnings" format "%F{red}no matches%f"
+zstyle ":completion:*" group-name ""
+zstyle ":completion:*" menu "select"
+
 ### Hook Functions
 
 my_chpwd_autols()
