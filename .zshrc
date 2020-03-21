@@ -4,6 +4,7 @@
 setopt AUTO_CD
 
 # Completion
+setopt NO_AUTO_REMOVE_SLASH
 setopt COMPLETE_IN_WORD
 setopt GLOB_COMPLETE
 setopt MENU_COMPLETE
@@ -47,8 +48,8 @@ export VISUAL="vim"
 export MANPAGER="vim -M +MANPAGER -"
 
 # color
-export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;47:ow=30;43:st=30;42:"
-export LSCOLORS="exfxgxcxbxagaehbabahad"
+export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;45:ow=30;43:st=30;42:"
+export LSCOLORS="exfxgxcxbxagaehbabafad"
 
 ### alias
 
@@ -75,10 +76,11 @@ compinit
 zstyle ":completion:*" ignore-parents "parent" "pwd"
 zstyle ":completion:*" squeeze-slashes "true"
 zstyle ":completion:*" list-separator ""
-zstyle ":completion:*" list-colors "${LS_COLORS}"
+zstyle ":completion:*:default" list-colors "${LS_COLORS}"
 zstyle ":completion:*:descriptions" format "%F{green}-- %d --%f"
 zstyle ":completion:*:messages" format "%F{yellow}%U%d%u%f"
 zstyle ":completion:*:warnings" format "%F{red}no matches%f"
+zstyle ":completion:*:manuals" separate-sections "true"
 zstyle ":completion:*" group-name ""
 zstyle ":completion:*" menu "select"
 
