@@ -68,14 +68,20 @@ alias mv="mv -i"
 
 ### autoload
 
-autoload -Uz compinit add-zsh-hook
+autoload -Uz compinit add-zsh-hook vcs_info
 compinit
+
+### vcs
+
+zstyle ":vcs_info:*" check-for-changes "true"
+zstyle ":vcs_info:*" formats "%%U%b%%u[%%F{yellow}%c%%f%%F{red}%u%%f] %%F{yellow}%s%%f"
 
 ### completion
 
+zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
+zstyle ":completion:*" force-list "always"
 zstyle ":completion:*" ignore-parents "parent" "pwd"
 zstyle ":completion:*" squeeze-slashes "true"
-zstyle ":completion:*" list-separator ""
 zstyle ":completion:*:default" list-colors "${LS_COLORS}"
 zstyle ":completion:*:descriptions" format "%F{green}-- %d --%f"
 zstyle ":completion:*:messages" format "%F{yellow}%U%d%u%f"
@@ -91,6 +97,13 @@ my_chpwd_autols()
     ls
 }
 add-zsh-hook -Uz chpwd my_chpwd_autols
+
+my_precmd_setrprompt()
+{
+    vcs_info
+    export RPS1="${vcs_info_msg_0_}"
+}
+add-zsh-hook -Uz precmd my_precmd_setrprompt
 
 # OSC 2 ; Pt BEL (change window title to Pt) <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands>
 if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
