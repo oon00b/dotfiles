@@ -1,57 +1,48 @@
-### Options
+# local settings
+[[ -f "${ZDOTDIR:-${HOME}}/.zshrc_local" ]] && source "${ZDOTDIR:-${HOME}}/.zshrc_local"
 
-# Changing Directories
+autoload -Uz compinit add-zsh-hook vcs_info
+
 setopt AUTO_CD
 
-# Completion
-setopt NO_AUTO_REMOVE_SLASH
+unsetopt AUTO_REMOVE_SLASH
 setopt COMPLETE_IN_WORD
 setopt GLOB_COMPLETE
 setopt MENU_COMPLETE
 
-# Expansion and Globbing
 setopt GLOB_DOTS
 setopt MARK_DIRS
 
-# History
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_NO_FUNCTIONS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 setopt SHARE_HISTORY
 
-# Input/Output
-setopt NO_CLOBBER
+unsetopt CLOBBER
 setopt CORRECT
 setopt IGNORE_EOF
 setopt PRINT_EXIT_VALUE
 
-# Shell Emulation
 setopt APPEND_CREATE
 
-# Zle
 setopt COMBINING_CHARS
 
-### Env
+# "currentdir " + UID == 0 ? "[#] " : ""
+export PS1="%U%c%u %(!.[%F{red}#%f] .)"
 
-# prompt ("currentdir " + UID == 0 ? "# " : "")
-export PS1="%U%c%u %(!.%F{red}#%f .)"
-
-# history
-[[ -n "${HISTFILE}" ]] || export HISTFILE="${HOME}/.zsh_history"
+[[ -n "${HISTFILE}" ]] || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
-# editor, pager
 export EDITOR="vim"
 export VISUAL="vim"
 export MANPAGER="vim -M +MANPAGER -"
 
-# color
+# GNU ls
 export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;45:ow=30;43:st=30;42:"
+# BSD ls
 export LSCOLORS="exfxgxcxbxagaehbabafad"
-
-### alias
 
 if ls --color=auto >| "/dev/null" 2>&1 ; then
     # GNU ls
@@ -62,35 +53,47 @@ elif ls -G >| "/dev/null" 2>&1 ; then
 else
     alias ls="ls -A -F"
 fi
+
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 
-### autoload
-
-autoload -Uz compinit add-zsh-hook vcs_info
 compinit
+[[ "${ZDOTDIR:-${HOME}}/.zcompdump.zwc" -nt \
+   "${ZDOTDIR:-${HOME}}/.zcompdump" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zcompdump"
 
-### vcs
-
-zstyle ":vcs_info:*" check-for-changes "true"
-zstyle ":vcs_info:*" formats "%%U%b%%u[%%F{yellow}%c%%f%%F{red}%u%%f] %%F{yellow}%s%%f"
-
-### completion
-
+# similar "set smartcase"
 zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
-zstyle ":completion:*" force-list "always"
+
 zstyle ":completion:*" ignore-parents "parent" "pwd"
 zstyle ":completion:*" squeeze-slashes "true"
+
+zstyle ":completion:*" menu "select"
+zstyle ":completion:*" force-list "always"
 zstyle ":completion:*:default" list-colors "${LS_COLORS}"
+
+zstyle ":completion:*" group-name ""
+zstyle ":completion:*:manuals" separate-sections "true"
 zstyle ":completion:*:descriptions" format "%F{green}-- %d --%f"
 zstyle ":completion:*:messages" format "%F{yellow}%U%d%u%f"
 zstyle ":completion:*:warnings" format "%F{red}no matches%f"
-zstyle ":completion:*:manuals" separate-sections "true"
-zstyle ":completion:*" group-name ""
-zstyle ":completion:*" menu "select"
 
-### Hook Functions
+# store compcache in "${ZDOTDIR:-HOME}/.zcompcache/"
+zstyle ":completion:*" use-cache "true"
+
+# vcs
+zstyle ":vcs_info:*" check-for-changes "true"
+zstyle ":vcs_info:*" stagedstr "[%F{yellow}S%f]"
+zstyle ":vcs_info:*" unstagedstr "[%F{red}U%f]"
+zstyle ":vcs_info:*" formats "%%F{green}%b%%f@%%F{blue}%r%%f.%%F{magenta}%s%f%c%u"
+
+my_precmd_setrprompt()
+{
+    vcs_info
+    # "branch"@"repo"."vcs"["staged"]["unstaged"]
+    export RPS1="${vcs_info_msg_0_}"
+}
+add-zsh-hook -Uz precmd my_precmd_setrprompt
 
 my_chpwd_autols()
 {
@@ -98,14 +101,8 @@ my_chpwd_autols()
 }
 add-zsh-hook -Uz chpwd my_chpwd_autols
 
-my_precmd_setrprompt()
-{
-    vcs_info
-    export RPS1="${vcs_info_msg_0_}"
-}
-add-zsh-hook -Uz precmd my_precmd_setrprompt
-
-# OSC 2 ; Pt BEL (change window title to Pt) <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands>
+# OSC 2 ; Pt BEL (change window title to Pt)
+# <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands>
 if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
     my_precmd_setwindowtitle()
     {
@@ -122,11 +119,15 @@ if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
     add-zsh-hook -Uz preexec my_preexec_setwindowtitle
 fi
 
-### Zle
-
 # <https://invisible-island.net/xterm/xterm.faq.html#xterm_arrows>
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
+
 bindkey "^A" backward-word
 bindkey "^Z" forward-word
 bindkey "^B" beginning-of-line
+bindkey "^I" menu-complete
+bindkey "^T" expand-word
+
+[[ "${ZDOTDIR:-${HOME}}/.zshrc.zwc" -nt \
+   "${ZDOTDIR:-${HOME}}/.zshrc" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zshrc"
