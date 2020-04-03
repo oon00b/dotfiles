@@ -119,6 +119,8 @@ if [[ "${TERM}" =~ "xterm|konsole" ]] ; then
     add-zsh-hook -Uz preexec my_preexec_setwindowtitle
 fi
 
+bindkey -e
+
 # <https://invisible-island.net/xterm/xterm.faq.html#xterm_arrows>
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward

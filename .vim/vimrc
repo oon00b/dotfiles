@@ -37,8 +37,8 @@ if has("termguicolors") && expand("$COLORTERM") =~# "truecolor\\|24bit"
 
     " popup menu transparency
     if has("nvim")
-        set winblend=20
-        set pumblend=20
+        set winblend=40
+        set pumblend=40
     endif
 endif
 
@@ -120,23 +120,26 @@ endif
 
 " dein.vim <https://github.com/Shougo/dein.vim>
 let g:MY_DEIN_BASE_PATH = exists("$XDG_DATA_HOME") ? expand("$XDG_DATA_HOME/dein") : expand("$HOME/.local/share/dein")
-let g:MY_DEIN_TOML_DIR = exists("$XDG_CONFIG_HOME") ? expand("$XDG_CONFIG_HOME/dein") : expand("$HOME/.config/dein")
 
-let &runtimepath ..= "," .. g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim"
+if isdirectory(g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim")
+    let g:MY_DEIN_TOML_DIR = exists("$XDG_CONFIG_HOME") ? expand("$XDG_CONFIG_HOME/dein") : expand("$HOME/.config/dein")
 
-let g:dein#auto_recache = 1
-if dein#load_state(g:MY_DEIN_BASE_PATH)
-    call dein#begin(g:MY_DEIN_BASE_PATH, expand("<sfile>", 0, 1) + expand(g:MY_DEIN_TOML_DIR .. "/*.toml", 0, 1))
-    call dein#add(g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim")
+    let &runtimepath ..= "," .. g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim"
 
-    call dein#load_toml(g:MY_DEIN_TOML_DIR .. "/dein.toml")
+    let g:dein#auto_recache = 1
+    if dein#load_state(g:MY_DEIN_BASE_PATH)
+        call dein#begin(g:MY_DEIN_BASE_PATH, expand("<sfile>", 0, 1) + expand(g:MY_DEIN_TOML_DIR .. "/*.toml", 0, 1))
+        call dein#add(g:MY_DEIN_BASE_PATH .. "/repos/github.com/Shougo/dein.vim")
 
-    call dein#end()
-    call dein#save_state()
+        call dein#load_toml(g:MY_DEIN_TOML_DIR .. "/dein.toml")
+
+        call dein#end()
+        call dein#save_state()
+    endif
+
+    set background=dark
+    colorscheme solarized8
 endif
-
-set background=dark
-colorscheme solarized8
 
 filetype plugin indent on
 syntax enable
