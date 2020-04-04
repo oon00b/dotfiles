@@ -28,8 +28,7 @@ setopt APPEND_CREATE
 
 setopt COMBINING_CHARS
 
-# "currentdir " + UID == 0 ? "[#] " : ""
-export PS1="%U%c%u %(!.[%F{red}#%f] .)"
+export PS1="%F{yellow}%c%f "
 
 [[ -n "${HISTFILE}" ]] || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
 export HISTSIZE=10000
@@ -75,7 +74,7 @@ zstyle ":completion:*:default" list-colors "${LS_COLORS}"
 zstyle ":completion:*" group-name ""
 zstyle ":completion:*:manuals" separate-sections "true"
 zstyle ":completion:*:descriptions" format "%F{green}-- %d --%f"
-zstyle ":completion:*:messages" format "%F{yellow}%U%d%u%f"
+zstyle ":completion:*:messages" format "%F{yellow}%d%f"
 zstyle ":completion:*:warnings" format "%F{red}no matches%f"
 
 # store compcache in "${ZDOTDIR:-HOME}/.zcompcache/"
