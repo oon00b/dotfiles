@@ -32,13 +32,16 @@ if has("nvim")
     set wildoptions+=pum
 endif
 
+" <https://gist.github.com/XVilka/8346728>
 if has("termguicolors") && expand("$COLORTERM") =~# "truecolor\\|24bit"
     set termguicolors
 
-    " popup menu transparency
     if has("nvim")
         set winblend=40
         set pumblend=40
+    else
+        let &t_8f = "\e[38;2;%lu;%lu;%lum"
+        let &t_8b = "\e[48;2;%lu;%lu;%lum"
     endif
 endif
 
