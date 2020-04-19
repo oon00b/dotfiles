@@ -37,8 +37,8 @@ if has("termguicolors") && expand("$COLORTERM") =~# "truecolor\\|24bit"
     set termguicolors
 
     if has("nvim")
-        set winblend=40
-        set pumblend=40
+        set winblend=30
+        set pumblend=30
     else
         let &t_8f = "\e[38;2;%lu;%lu;%lum"
         let &t_8b = "\e[48;2;%lu;%lu;%lum"
