@@ -23,7 +23,7 @@ set hlsearch
 set incsearch
 set tagcase=followscs
 
-set completeopt=menuone,preview,noinsert
+set completeopt=menuone,preview,noinsert,noselect
 set wildignorecase
 
 set wildmenu
