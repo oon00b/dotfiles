@@ -30,6 +30,9 @@ setopt COMBINING_CHARS
 
 export PS1="%F{yellow}%c%f %(!.[%F{red}#%f] .)"
 
+# part of a word except [[:alnum:]]
+export WORDCHARS="!#$%^~\\@+:*?_"
+
 [[ -n "${HISTFILE}" ]] || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
@@ -65,7 +68,7 @@ compinit
 [[ "${ZDOTDIR:-${HOME}}/.zcompdump.zwc" -nt \
    "${ZDOTDIR:-${HOME}}/.zcompdump" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zcompdump"
 
-# similar "set smartcase"
+# similar smartcase
 zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
 
 zstyle ":completion:*" ignore-parents "parent" "pwd"
@@ -124,15 +127,16 @@ fi
 
 bindkey -e
 
+bindkey "^A" backward-word
+bindkey "^B" beginning-of-line
+bindkey "^C" send-break
+bindkey "^I" menu-complete
+bindkey "^T" expand-word
+bindkey "^Z" forward-word
+
 # <https://invisible-island.net/xterm/xterm.faq.html#xterm_arrows>
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
-
-bindkey "^A" backward-word
-bindkey "^Z" forward-word
-bindkey "^B" beginning-of-line
-bindkey "^I" menu-complete
-bindkey "^T" expand-word
 
 [[ "${ZDOTDIR:-${HOME}}/.zshrc.zwc" -nt \
    "${ZDOTDIR:-${HOME}}/.zshrc" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zshrc"
