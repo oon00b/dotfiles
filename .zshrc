@@ -79,10 +79,13 @@ zstyle ":completion:*" force-list "always"
 zstyle ":completion:*:default" list-colors "${LS_COLORS}"
 
 zstyle ":completion:*" group-name ""
-zstyle ":completion:*:manuals" separate-sections "true"
 zstyle ":completion:*:descriptions" format "%F{green}-- %d --%f"
 zstyle ":completion:*:messages" format "%F{yellow}%d%f"
 zstyle ":completion:*:warnings" format "%F{red}no matches%f"
+
+# "_man" completer
+zstyle ":completion:*:manuals" separate-sections "true"
+zstyle ":completion:*:manuals.*" insert-sections "true"
 
 # store compcache in "${ZDOTDIR:-HOME}/.zcompcache/"
 zstyle ":completion:*" use-cache "true"
