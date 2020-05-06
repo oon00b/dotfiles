@@ -141,5 +141,10 @@ bindkey "^Z" forward-word
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
+bindkey -M isearch "^M" accept-search
+bindkey -M isearch "^J" accept-search
+bindkey -M isearch "^[[A" vi-repeat-search
+bindkey -M isearch "^[[B" vi-rev-repeat-search
+
 [[ "${ZDOTDIR:-${HOME}}/.zshrc.zwc" -nt \
    "${ZDOTDIR:-${HOME}}/.zshrc" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zshrc"
