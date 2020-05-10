@@ -53,7 +53,7 @@ set relativenumber
 
 " DECSCUSR(+ vertical, blinking)
 " <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Functions-using-CSI-_-ordered-by-the-final-character_s_>
-if !has("nvim") && &term =~? "xterm\\|konsole\\|alacritty"
+if !has("nvim") && &term =~? "xterm\\|konsole\\|alacritty\\|st"
     let &t_EI = "\e[2 q" " normal mode  = block
     let &t_SI = "\e[5 q" " insert mode  = vertical, blinking
     let &t_SR = "\e[4 q" " replace mode = horizontal
