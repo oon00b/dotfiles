@@ -81,8 +81,15 @@ set scrolloff=5
 set report=0
 set shortmess=aoOc
 
-set mouse=a
 set clipboard=unnamed
+set mouse=a
+if !has("nvim")
+    if &term =~? "alacritty\\|st"
+        set ttymouse=sgr
+    endif
+
+    set ttyfast
+endif
 
 set notimeout
 set ttimeout
