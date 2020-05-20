@@ -41,6 +41,8 @@ export EDITOR="vim"
 export VISUAL="vim"
 export MANPAGER="vim -M +MANPAGER -"
 
+export LESS="-i -R --no-histdups"
+
 # GNU ls
 if test -r "${HOME}/.dir_colors" && command -v dircolors >| "/dev/null" 2>&1 ; then
     eval $(dircolors "${HOME}/.dir_colors")
