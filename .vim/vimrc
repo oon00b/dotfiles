@@ -81,7 +81,12 @@ set scrolloff=5
 set report=0
 set shortmess=aoOc
 
-set clipboard=unnamed
+if has("osxdarwin")
+    set clipboard=unnamed
+else
+    set clipboard=unnamedplus
+endif
+
 set mouse=a
 if !has("nvim")
     if &term =~? "alacritty\\|st"
