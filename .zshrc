@@ -42,6 +42,7 @@ export VISUAL="vim"
 export MANPAGER="vim -M +MANPAGER -"
 
 export LESS="-i -R --no-histdups"
+export LESSHISTFILE="/dev/null"
 
 # GNU ls
 if test -r "${HOME}/.dir_colors" && command -v dircolors >| "/dev/null" 2>&1 ; then
