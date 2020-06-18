@@ -1,6 +1,7 @@
 *~
 tmp/
 .tmp/
+build/
 
 #macos
 ._*
