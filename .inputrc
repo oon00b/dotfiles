@@ -1,0 +1,25 @@
+set editing-mode emacs
+set keymap emacs
+set bell-style none
+set colored-stats on
+set completion-ignore-case on
+set isearch-terminators "\r\n"
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set skip-completed-text on
+set visible-stats on
+
+$if bash
+    set history-size 10000
+$else
+    set history-size 0
+$endif
+
+"\C-B": beginning-of-line
+"\C-A": backward-word
+"\C-Z": forward-word
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+"\t": menu-complete
