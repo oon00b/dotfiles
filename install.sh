@@ -10,6 +10,7 @@ install_dotfiles()
 }
 
 install_dotfiles ".dir_colors" "${HOME}"
+install_dotfiles ".inputrc"    "${INPUTRC:-${HOME}}"
 install_dotfiles ".vim"        "${HOME}"
 install_dotfiles ".zshrc"      "${ZDOTDIR:-${HOME}}"
 install_dotfiles "dein"        "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
