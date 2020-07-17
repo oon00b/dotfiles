@@ -67,12 +67,12 @@ set list
 set listchars=tab:>.,trail:&
 
 " filename[modified][readonly]    [line/lines, column](\U"codepoint")[filetype]
-set statusline=%f%m%r%=[%l/%L,\ %c](\\U%B)%y
+set statusline=%t%m%r%=[%l/%L,\ %c](\\U%B)%y
 set laststatus=2
 set showcmd
 
 set title
-set titlestring=%f%m%r
+set titlestring=%F%m%r\ -\ %{v:progname}
 
 set splitright
 set helpheight=0
