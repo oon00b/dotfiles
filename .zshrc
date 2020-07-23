@@ -31,8 +31,7 @@ setopt COMBINING_CHARS
 
 export PS1="%F{yellow}%c%f %(!.[%F{red}#%f] .)"
 
-# part of a word except [[:alnum:]]
-export WORDCHARS="!#$%^~\\@+:*?_"
+export WORDCHARS="!#$%^~\\@+-=_*?"
 
 [[ -n "${HISTFILE}" ]] || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
 export HISTSIZE=10000
