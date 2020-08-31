@@ -1,7 +1,8 @@
-# local settings
-[[ -r "${ZDOTDIR:-${HOME}}/.zshrc_local" ]] && source "${ZDOTDIR:-${HOME}}/.zshrc_local"
+# local settings(pre loading)
+test -r "${ZDOTDIR:-${HOME}}/.zshrc_pre" && source "${ZDOTDIR:-${HOME}}/.zshrc_pre"
 
 autoload -Uz compinit add-zsh-hook vcs_info
+compinit
 
 setopt AUTO_CD
 
@@ -29,11 +30,11 @@ setopt APPEND_CREATE
 
 setopt COMBINING_CHARS
 
-export PS1="%F{yellow}%c%f %(!.[%F{red}#%f] .)"
+export PS1="%F{yellow}%c%f "
 
 export WORDCHARS="!#$%^~\\@+-=_*?"
 
-[[ -n "${HISTFILE}" ]] || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
+test -n "${HISTFILE}" || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
@@ -67,10 +68,6 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 
-compinit
-[[ "${ZDOTDIR:-${HOME}}/.zcompdump.zwc" -nt \
-   "${ZDOTDIR:-${HOME}}/.zcompdump" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zcompdump"
-
 # similar smartcase
 zstyle ":completion:*" matcher-list "m:{[:lower:]}={[:upper:]}"
 
@@ -90,20 +87,17 @@ zstyle ":completion:*:warnings" format "%F{red}no matches%f"
 zstyle ":completion:*:manuals" separate-sections "true"
 zstyle ":completion:*:manuals.*" insert-sections "true"
 
-# store compcache in "${ZDOTDIR:-HOME}/.zcompcache/"
-zstyle ":completion:*" use-cache "true"
-
 # vcs
 zstyle ":vcs_info:*" check-for-changes "true"
 zstyle ":vcs_info:*" stagedstr "[%F{yellow}S%f]"
 zstyle ":vcs_info:*" unstagedstr "[%F{red}U%f]"
-zstyle ":vcs_info:*" formats "%%F{green}%b%%f@%%F{blue}%r%%f.%%F{magenta}%s%f%c%u"
+zstyle ":vcs_info:*" formats "%%F{magenta}%b%%f@%%F{blue}%r%%f%c%u"
 
 my_precmd_setrprompt()
 {
     vcs_info
-    # "branch"@"repo"."vcs"["staged"]["unstaged"]
-    export RPS1="${vcs_info_msg_0_}"
+    # branch@repo[staged][unstaged]
+    RPS1="${vcs_info_msg_0_}"
 }
 add-zsh-hook -Uz precmd my_precmd_setrprompt
 
@@ -149,5 +143,5 @@ bindkey -M isearch "^J" accept-search
 bindkey -M isearch "^[[A" vi-repeat-search
 bindkey -M isearch "^[[B" vi-rev-repeat-search
 
-[[ "${ZDOTDIR:-${HOME}}/.zshrc.zwc" -nt \
-   "${ZDOTDIR:-${HOME}}/.zshrc" ]] || zcompile "${ZDOTDIR:-${HOME}}/.zshrc"
+# local settings(post loading)
+test -r "${ZDOTDIR:-${HOME}}/.zshrc_post" && source "${ZDOTDIR:-${HOME}}/.zshrc_post"
