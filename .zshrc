@@ -34,7 +34,7 @@ export PS1="%F{yellow}%c%f "
 
 export WORDCHARS="!#$%^~\\@+-=_*?"
 
-test -n "${HISTFILE}" || export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
+export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
@@ -45,21 +45,17 @@ export MANPAGER="vim -M +MANPAGER -"
 export LESS="-i -R --no-histdups"
 export LESSHISTFILE="/dev/null"
 
-# GNU ls
 if test -r "${HOME}/.dir_colors" && command -v dircolors >| "/dev/null" 2>&1 ; then
     eval $(dircolors "${HOME}/.dir_colors")
 else
     export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;45:ow=30;43:st=30;42:"
 fi
-# BSD ls
-export LSCOLORS="exfxgxcxbxagaehbabafad"
 
-if ls --color=auto >| "/dev/null" 2>&1 ; then
-    # GNU ls
+if ls --color=auto >| "/dev/null" 2>&1 ; then # GNU ls
     alias ls="ls -A -F --color=auto"
-elif ls -G >| "/dev/null" 2>&1 ; then
-    # BSD ls
+elif ls -G >| "/dev/null" 2>&1 ; then         # BSD ls
     alias ls="ls -A -F -G"
+    export LSCOLORS="exfxgxcxbxagaehbabafad"
 else
     alias ls="ls -A -F"
 fi
