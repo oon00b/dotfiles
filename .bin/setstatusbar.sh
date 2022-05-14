@@ -28,7 +28,7 @@ add_status_commands "audio_status"
 battery_path="/sys/class/power_supply/BAT0"
 battery_status(){
     capacity="$(cat "${battery_path}/capacity")"
-    is_charging="$(grep -i -s -q "Charging" "${battery_path}/status" && echo "+" || echo "-")"
+    is_charging="$(grep -i -s -q "^Charging$" "${battery_path}/status" && echo "+" || echo "-")"
     echo "BAT:${capacity}%[${is_charging}]"
 }
 test -d ${battery_path} && add_status_commands "battery_status"
