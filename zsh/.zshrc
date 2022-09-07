@@ -1,4 +1,6 @@
 # local settings(pre loading)
+# "no matches found" エラーを抑制する
+setopt NULL_GLOB
 if test -d "${ZDOTDIR}/pre_rc" ; then
     for i in "${ZDOTDIR}/pre_rc/"*.zsh ; do
         source "${i}"
