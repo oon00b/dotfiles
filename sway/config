@@ -5,10 +5,10 @@ set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term alacritty
 
+set $term alacritty
 set $browser firefox
+set $launcher "LAUNCHER_MODE=enable $term"
 
 set $focused_bg #aa2200
 set $focused_fg #ffffff
@@ -28,7 +28,7 @@ set $font monospace Bold 11
 
 font $font
 
-set $status_cmd $${HOME}/.bin/setstatusbar.sh
+set $status_cmd setstatusbar.sh
 
 bar {
     id bar-0
@@ -49,7 +49,7 @@ output * bg #000000 solid_color
 bindsym $mod+Shift+s exec swaylock
 exec swayidle -w before-sleep swaylock
 
-set $volctl $${HOME}/.bin/volctl.sh
+set $volctl volctl.sh
 set $refresh_status $status_cmd
 
 bindsym XF86AudioMute exec "$volctl set-mute toggle ; $refresh_status"
@@ -57,6 +57,7 @@ bindsym XF86AudioRaiseVolume exec "$volctl set-mute 0 ; $volctl set-volume +1% ;
 bindsym XF86AudioLowerVolume exec "$volctl set-volume -1% ; test $$($volctl get-volume) = 0% && $volctl set-mute 1 ; $refresh_status"
 
 bindsym $mod+Return exec $term
+bindsym $mod+d exec $launcher
 bindsym $mod+Shift+f exec $browser
 
 # Kill focused window

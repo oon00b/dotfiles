@@ -1,3 +1,5 @@
+#! /bin/zsh
+
 viminfo () {
     vim -R -M -c "Info $1 $2" +only
 }
