@@ -129,6 +129,9 @@ if [[ "${TERM}" =~ "xterm|konsole|alacritty|tmux|screen|st" ]] ; then
     add-zsh-hook -Uz preexec my_preexec_setwindowtitle
 fi
 
+# ctrl+s, ctrl+q を無効化
+stty -ixon
+
 bindkey -e
 
 bindkey "^A" backward-word
