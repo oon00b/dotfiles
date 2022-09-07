@@ -1,5 +1,7 @@
 #! /bin/sh
 
+test -n "${DISPLAY}${WAYLAND_DISPLAY}" && exit 1
+
 # vconsoleだとフォントが無いので、wayland上でのみ日本語ロケールを使う
 export LANG="ja_JP.UTF-8"
 

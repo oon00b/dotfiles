@@ -1,5 +1,9 @@
 # local settings(pre loading)
-test -r "${ZDOTDIR:-${HOME}}/.zshrc_pre" && source "${ZDOTDIR:-${HOME}}/.zshrc_pre"
+if test -d "${ZDOTDIR}/pre_rc" ; then
+    for i in "${ZDOTDIR}/pre_rc/"*.zsh ; do
+        source "${i}"
+    done
+fi
 
 autoload -Uz compinit add-zsh-hook vcs_info
 compinit
@@ -34,7 +38,7 @@ export PS1="%F{yellow}%c%f "
 
 export WORDCHARS="!#$%^~\\@+-=_*?"
 
-export HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
+export HISTFILE="${ZDOTDIR}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
@@ -45,8 +49,10 @@ export MANPAGER="vim -M +MANPAGER -"
 export LESS="-i -R --no-histdups"
 export LESSHISTFILE="/dev/null"
 
-if test -r "${HOME}/.dir_colors" && command -v dircolors >| "/dev/null" 2>&1 ; then
-    eval $(dircolors "${HOME}/.dir_colors")
+export GPG_TTY="$(tty)"
+
+if test -r "${XDG_CONFIG_HOME}/.dir_colors" && command -v dircolors >| "/dev/null" 2>&1 ; then
+    eval $(dircolors "${XDG_CONFIG_HOME}/.dir_colors")
 else
     export LS_COLORS="di=34:ln=35:so=36:pi=32:ex=31:bd=30;46:cd=30;44:su=37;41:sg=30;41:tw=30;45:ow=30;43:st=30;42:"
 fi
@@ -140,4 +146,8 @@ bindkey -M isearch "^[[A" vi-repeat-search
 bindkey -M isearch "^[[B" vi-rev-repeat-search
 
 # local settings(post loading)
-test -r "${ZDOTDIR:-${HOME}}/.zshrc_post" && source "${ZDOTDIR:-${HOME}}/.zshrc_post"
+if test -d "${ZDOTDIR}/post_rc" ; then
+    for i in "${ZDOTDIR}/post_rc/"*.zsh ; do
+        source "${i}"
+    done
+fi

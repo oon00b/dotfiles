@@ -1,6 +1,9 @@
 #! /bin/sh
 set -e
 
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"${HOME}/.config"}"
+INPUTRC="${INPUTRC:-"${XDG_CONFIG_HOME}"}"
+
 install_dotfiles()
 {
     _dotfiles_path="$(dirname "${0}")/${1}"
@@ -10,13 +13,14 @@ install_dotfiles()
 }
 
 install_dotfiles ".bin"           "${HOME}"
-install_dotfiles ".dir_colors"    "${HOME}"
-install_dotfiles ".inputrc"       "${INPUTRC:-${HOME}}"
 install_dotfiles ".vim"           "${HOME}"
-install_dotfiles ".zshrc"         "${ZDOTDIR:-${HOME}}"
-install_dotfiles "alacritty"      "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
-install_dotfiles "dein"           "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
-install_dotfiles "git"            "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
-install_dotfiles "nvim"           "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
-install_dotfiles "sway"           "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
-install_dotfiles "user-dirs.dirs" "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
+install_dotfiles ".zshenv"        "${HOME}"
+install_dotfiles "zsh"            "${XDG_CONFIG_HOME}"
+install_dotfiles ".dir_colors"    "${XDG_CONFIG_HOME}"
+install_dotfiles "alacritty"      "${XDG_CONFIG_HOME}"
+install_dotfiles "dein"           "${XDG_CONFIG_HOME}"
+install_dotfiles "git"            "${XDG_CONFIG_HOME}"
+install_dotfiles "nvim"           "${XDG_CONFIG_HOME}"
+install_dotfiles "sway"           "${XDG_CONFIG_HOME}"
+install_dotfiles "user-dirs.dirs" "${XDG_CONFIG_HOME}"
+install_dotfiles ".inputrc"       "${INPUTRC}"

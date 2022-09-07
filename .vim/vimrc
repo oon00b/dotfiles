@@ -103,6 +103,7 @@ set ttimeoutlen=100
 set history=10000
 if !has("nvim")
     set viminfo='0,<0,h
+    set viminfofile=$HOME/.vim/viminfo
 else
     set shada='0,<0,h
 endif
