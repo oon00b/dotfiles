@@ -1,7 +1,6 @@
 # local settings(pre loading)
-# "no matches found" エラーを抑制する
-unsetopt NOMATCH
-if test -d "${ZDOTDIR}/pre_rc" ; then
+setopt NULL_GLOB
+if test -f "${ZDOTDIR}/pre_rc/"*.zsh ; then
     for i in "${ZDOTDIR}/pre_rc/"*.zsh ; do
         source "${i}"
     done
