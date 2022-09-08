@@ -1,10 +1,8 @@
 # local settings(pre loading)
 setopt NULL_GLOB
-if test -f "${ZDOTDIR}/pre_rc/"*.zsh ; then
-    for i in "${ZDOTDIR}/pre_rc/"*.zsh ; do
-        source "${i}"
-    done
-fi
+for i in "${ZDOTDIR}/pre_rc/"*.zsh ; do
+    source "${i}"
+done
 
 autoload -Uz compinit add-zsh-hook vcs_info
 compinit
@@ -150,8 +148,6 @@ bindkey -M isearch "^[[A" vi-repeat-search
 bindkey -M isearch "^[[B" vi-rev-repeat-search
 
 # local settings(post loading)
-if test -d "${ZDOTDIR}/post_rc" ; then
-    for i in "${ZDOTDIR}/post_rc/"*.zsh ; do
-        source "${i}"
-    done
-fi
+for i in "${ZDOTDIR}/post_rc/"*.zsh ; do
+    source "${i}"
+done
