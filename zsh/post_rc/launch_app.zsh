@@ -4,10 +4,9 @@ _gtk_launch(){
     local data_dirs="${XDG_DATA_HOME:-"${HOME}/.local/share"}:${XDG_DATA_DIRS:-"/usr/local/share:/usr/share"}"
     local -a cmplist
 
-    setopt NULL_GLOB
     for i in $(echo ${data_dirs//":"/$'\n'}) ; do
         for j in "${i}/applications/"*.desktop; do
-            appname="$(basename "${j}" .desktop)"
+            local appname="$(basename "${j}" .desktop)"
             cmplist+=("${appname}")
         done
     done
