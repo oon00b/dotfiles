@@ -21,8 +21,4 @@ export WINIT_UNIX_BACKEND="x11"
 # firefoxをwaylandで動かすための設定
 export MOZ_ENABLE_WAYLAND="1"
 
-sway_log_path="${XDG_DATA_HOME:-${HOME}/.local/share}/sway.log"
-sway_old_log_path="${XDG_DATA_HOME:-${HOME}/.local/share}/sway.old.log"
-test -f "${sway_log_path}" && cp "${sway_log_path}" "${sway_old_log_path}"
-
-exec sway -d > "${sway_log_path}" 2>&1
+exec sway
