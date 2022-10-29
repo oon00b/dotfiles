@@ -34,7 +34,7 @@ setopt APPEND_CREATE
 
 setopt COMBINING_CHARS
 
-export PS1="%F{yellow}%c%f "
+export PS1="%F{blue}%M%f:%F{yellow}%c%f%(!.:%K{white}%F{red}#%f%k.) "
 
 export WORDCHARS="!#$%^~\\@+-=_*?"
 
