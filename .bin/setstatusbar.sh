@@ -30,6 +30,7 @@ battery_status(){
     capacity="$(cat "${battery_path}/capacity")"
     is_charging="$(grep -i -s -q "^Charging$" "${battery_path}/status" && echo "+" || echo "-")"
     echo "BAT:${capacity}%[${is_charging}]"
+    test ${capacity} -lt "10" && test ${is_charging} != "+" && swaynag -t warning -m "バッテリー 残り ${capacity}% 充電しろ"
 }
 test -d ${battery_path} && add_status_commands "battery_status"
 
