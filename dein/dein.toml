@@ -1,12 +1,14 @@
 [[plugins]]
-if = '''!has("nvim")'''
 repo = '''vim-jp/vimdoc-ja'''
 
 [[plugins]]
 repo = '''lifepillar/vim-solarized8'''
 hook_add = '''
 let g:solarized_italics = 0
-let g:solarized_visibility = "high"'''
+let g:solarized_visibility = "high"
+set background=dark
+colorscheme solarized8
+'''
 
 [[plugins]]
 repo = '''https://gitlab.com/HiPhish/info.vim.git'''

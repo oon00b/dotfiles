@@ -1,5 +1,7 @@
-#! /bin/sh
+#!/bin/sh
+
 set -e
+set -u
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"${HOME}/.config"}"
 ZDOTDIR="${ZDOTDIR:-"${XDG_CONFIG_HOME}/zsh"}"
@@ -8,7 +10,7 @@ INPUTRC="${INPUTRC:-"${XDG_CONFIG_HOME}/.inputrc"}"
 install_dotfiles()
 {
     _dotfiles_path="$(dirname "${0}")/${1}"
-    printf "installing from \"${_dotfiles_path}\" to \"${2}\"\n"
+    printf "installing from %s to %s\n" "${_dotfiles_path}" "${2}"
     test -d "${2}" || mkdir -p "${2}"
     cp -R "${_dotfiles_path}" "${2}"
 }
