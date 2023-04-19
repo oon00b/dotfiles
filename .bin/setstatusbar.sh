@@ -34,7 +34,7 @@ battery_status(){
 }
 test -d ${battery_path} && add_status_commands "battery_status"
 
-wifi_interface_path="/sys/class/net/wlp3s0"
+wifi_interface_path="/sys/class/net/wlan0"
 wifi_status(){
     operational_state="$(cat "${wifi_interface_path}/operstate")"
     echo "wl:${operational_state}"
