@@ -52,3 +52,6 @@ cursor:
     blinking: "On"
 
   blink_interval: 500
+
+key_bindings:
+  - { key: "N", mods: "Control|Shift", action: "CreateNewWindow" }
