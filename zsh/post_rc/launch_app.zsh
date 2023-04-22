@@ -25,6 +25,7 @@ launch_app(){
 compdef launch_app="gtk-launch"
 
 if test "${LAUNCHER_MODE}" = "enable" ; then
+    unset LAUNCHER_MODE
     print -P "%B%Slaunch desktop application%b%s"
     add-zsh-hook precmd (){print -z "launch_app "}
 fi

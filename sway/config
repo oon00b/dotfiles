@@ -20,9 +20,12 @@ set $inactive_fg #aaaaaa
 set $unfocused_bg #000000
 set $unfocused_fg #aaaaaa
 
-client.focused $focused_bg $focused_bg $focused_fg $focused_indicator
-client.focused_inactive $inactive_bg $inactive_bg $inactive_fg $inactive_bg
-client.unfocused $unfocused_bg $unfocused_bg $unfocused_fg $unfocused_bg
+titlebar_border_thickness 0
+
+#                      <border>       <background>  <text>        <indicator>
+client.focused          $focused_bg   $focused_bg   $focused_fg   $focused_indicator
+client.focused_inactive $inactive_bg  $inactive_bg  $inactive_fg  $inactive_bg
+client.unfocused        $unfocused_bg $unfocused_bg $unfocused_fg $unfocused_bg
 
 set $font monospace Bold 11
 
@@ -38,7 +41,7 @@ bar {
     colors {
         statusline #ffffff
         background #000000
-        focused_workspace $focused_bg $focused_bg $focused_fg
+        focused_workspace  $focused_bg $focused_bg $focused_fg
         inactive_workspace $unfocused_bg $unfocused_bg $unfocused_fg
     }
 }
@@ -58,7 +61,7 @@ bindsym XF86AudioLowerVolume exec "$volctl set-volume -1% ; test $$($volctl get-
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $launcher
-bindsym $mod+Shift+f exec $browser
+bindsym $mod+f exec $browser
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -137,12 +140,6 @@ bindsym $mod+v splitv
 
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
-
-# Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
-
-# Move focus to the parent container
-bindsym $mod+a focus parent
 
 # システムの設定
 include /etc/sway/config.d/*.conf
