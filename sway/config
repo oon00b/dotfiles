@@ -73,6 +73,8 @@ bindsym $mod+Shift+q kill
 # mouse button for dragging.
 floating_modifier $mod normal
 
+mouse_warping container
+
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 
