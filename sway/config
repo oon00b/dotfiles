@@ -10,26 +10,24 @@ set $term alacritty
 set $browser firefox
 set $launcher "LAUNCHER_MODE=enable $term"
 
-set $focused_bg #aa2200
-set $focused_fg #ffffff
-set $focused_indicator #88aa00
-
-set $inactive_bg #333333
-set $inactive_fg #aaaaaa
+set $focused_border    #4c4c4c
+set $focused_bg        #202020
+set $focused_fg        #b5b5b5
+set $focused_indicator #727272
 
 set $unfocused_bg #000000
-set $unfocused_fg #aaaaaa
+set $unfocused_fg #8c8c8c
 
-titlebar_border_thickness 0
+set $font monospace 11
+font pango:$font
 
-#                      <border>       <background>  <text>        <indicator>
-client.focused          $focused_bg   $focused_bg   $focused_fg   $focused_indicator
-client.focused_inactive $inactive_bg  $inactive_bg  $inactive_fg  $inactive_bg
-client.unfocused        $unfocused_bg $unfocused_bg $unfocused_fg $unfocused_bg
+title_align center
+for_window [shell=".*"] title_format %title <span underline="single" text_transform="uppercase">@%shell</span>
 
-set $font monospace Bold 11
-
-font $font
+#                       <border>        <background>  <text>        <indicator>
+client.focused          $focused_border $focused_bg   $focused_fg   $focused_indicator
+client.focused_inactive $unfocused_bg   $unfocused_bg $unfocused_fg $unfocused_bg
+client.unfocused        $unfocused_bg   $unfocused_bg $unfocused_fg $unfocused_bg
 
 set $status_cmd setstatusbar.sh
 
@@ -39,14 +37,14 @@ bar {
     status_command $status_cmd
 
     colors {
-        statusline #ffffff
-        background #000000
-        focused_workspace  $focused_bg $focused_bg $focused_fg
-        inactive_workspace $unfocused_bg $unfocused_bg $unfocused_fg
+        statusline $focused_fg
+        background $unfocused_bg
+        focused_workspace  $focused_border $focused_bg   $focused_fg
+        inactive_workspace $unfocused_bg   $unfocused_bg $unfocused_fg
     }
 }
 
-output * bg #000000 solid_color
+output * bg $unfocused_bg solid_color
 
 # swaylock
 bindsym $mod+Shift+s exec swaylock
