@@ -143,8 +143,8 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+b splith
 bindsym $mod+v splitv
 
-# Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
 
 # システムの設定
 include /etc/sway/config.d/*.conf
