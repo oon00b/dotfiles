@@ -1,17 +1,13 @@
-#! /bin/zsh
-
 _gtk_launch(){
     local data_dirs="${XDG_DATA_HOME:-"${HOME}/.local/share"}:${XDG_DATA_DIRS:-"/usr/local/share:/usr/share"}"
     local -a cmplist
 
-    setopt NULL_GLOB
     for dir in $(echo ${data_dirs//":"/$'\n'}) ; do
-        for app in ${dir}/applications/*.desktop; do
+        for app in "${dir}"/applications/*.desktop(N); do
             local appname="$(basename "${app}" .desktop)"
             cmplist+=("${appname}")
         done
     done
-    unsetopt NULL_GLOB
 
     _values -w "desktop applications" ${cmplist}
 }
