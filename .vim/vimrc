@@ -75,8 +75,34 @@ set belloff=all
 set list
 set listchars=tab:>.,trail:&
 
-" filename[modified][readonly]    [line/lines, column](\U"codepoint")[filetype]
-set statusline=%t%m%r%=[%l/%L,\ %c](\\U%B)%y
+function! g:MyStatusLine() abort
+    let l:mode_string = ''
+    let l:patterns = {
+                \   '^n': 'Normal'
+                \ , "^\\v[vV\<C-V>]": 'Visual'
+                \ , "^\\v[sS\<C-S>]": 'Select'
+                \ , '^i': 'Insert'
+                \ , '^R': 'Replace'
+                \ , '^c': 'CmdLine'
+                \ , '^t': 'Terminal'
+                \ }
+
+    for [l:pattern, l:value] in items(l:patterns)
+        if mode() =~# l:pattern
+            let l:mode_string = l:value
+            break
+        endif
+    endfor
+
+    if empty(l:mode_string)
+        mode_string = "Unknown Mode"
+    endif
+
+"Mode | filename[modified][readonly]    [line/lines, column](U+nnnn ~ nnnnnnnn)[filetype]
+    return '%#ModeMsg#' .. l:mode_string .. ' %* %t%m%r' .. '%=' .. '[%l/%L, %c](U+%04.8B)%y'
+endfunction
+
+set statusline=%{%g:MyStatusLine()%}
 set laststatus=2
 set showcmd
 
