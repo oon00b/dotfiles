@@ -24,8 +24,9 @@ if dein#min#load_state(s:dein_base)
                 \ , {'hook_add': join([
                 \ 'let g:solarized_italics = 0'
                 \ , 'let g:solarized_visibility = "high"'
+                \ , 'let g:solarized_statusline = "low"'
                 \ , 'set background=dark'
-                \ , 'colorscheme solarized8'
+                \ , 'colorscheme solarized8_flat'
                 \ ], "\n")})
 
     call dein#add('https://gitlab.com/HiPhish/info.vim.git'
