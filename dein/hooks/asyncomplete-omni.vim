@@ -7,7 +7,6 @@ autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#s
 \ 'allowlist': ['*'],
 \ 'blocklist': ['c', 'cpp', 'html'],
 \ 'completor': function('asyncomplete#sources#omni#completor'),
-\ 'priority': -5,
 \ 'config': {
 \   'show_source_kind': 1,
 \ },

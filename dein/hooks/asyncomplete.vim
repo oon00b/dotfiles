@@ -2,26 +2,6 @@
 
 let g:asyncomplete_auto_completeopt = 0
 
-" 補完候補を 'priority' オプションの大きい順にソートする
-function! s:sort_by_priority_preprocessor(options, matches) abort
-  let l:items = []
-  for [l:source_name, l:matches] in items(a:matches)
-    for l:item in l:matches['items']
-      if stridx(l:item['word'], a:options['base']) == 0
-        let l:item['priority'] =
-            \ get(asyncomplete#get_source_info(l:source_name), 'priority', 0)
-        call add(l:items, l:item)
-      endif
-    endfor
-  endfor
-
-  let l:items = sort(l:items, {a, b -> b['priority'] - a['priority']})
-
-  call asyncomplete#preprocess_complete(a:options, l:items)
-endfunction
-
-let g:asyncomplete_preprocessor = [function('s:sort_by_priority_preprocessor')]
-
 " 保管候補のリスト
 let s:current_buffer_matches = []
 
@@ -56,7 +36,6 @@ autocmd User asyncomplete_setup call asyncomplete#register_source({
     \ , 'events': ['TextChangedI']
     \ , 'on_event': {_name, _ctx, _event, -> s:set_current_buffer_matches()}
     \ , 'completor': function('s:current_buffer_completor')
-    \ , 'priority': -10
     \ })
 
 " }}}

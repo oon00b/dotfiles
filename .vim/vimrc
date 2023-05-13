@@ -131,16 +131,26 @@ if !has('nvim')
     set ttyfast
 endif
 
+set mousemodel=popup_setpos
+aunmenu PopUp
+vnoremenu PopUp.Search\ on\ 'keywordprg' K
+
 set notimeout
 set ttimeout
 set ttimeoutlen=100
 
 set history=10000
 if !has('nvim')
-    set viminfo='0,<0,h
+    set viminfo='0,<0,f0,h
     set viminfofile=$HOME/.vim/viminfo
 else
-    set shada='0,<0,h
+    set shada='0,<0,f0,h
+endif
+
+if has('nvim')
+    execute 'set' 'runtimepath^=' .. expand('<sfile>:p:h')
+    execute 'set' 'runtimepath+=' .. expand('<sfile>:p:h') .. '/after'
+    let &packpath = &runtimepath
 endif
 
 " $VIMRUNTIME/plugin
@@ -148,8 +158,6 @@ let g:loaded_2html_plugin = 1
 let g:loaded_getscriptPlugin = 1
 let g:loaded_gzip = 1
 let g:loaded_logiPat = 1
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
 let g:loaded_rrhelper = 1
 let g:loaded_spellfile_plugin = 1
 let g:loaded_tar = 1
@@ -158,6 +166,11 @@ let g:loaded_vimball = 1
 let g:loaded_vimballPlugin = 1
 let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
+
+" netrw.vim
+let g:netrw_dirhistmax = 0
+let g:netrw_home = expand('<sfile>:p')
+let g:netrw_keppj = ''
 
 " man.vim, machit.vim
 if !has('nvim')
