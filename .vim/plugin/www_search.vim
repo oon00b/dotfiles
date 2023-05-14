@@ -29,8 +29,8 @@ function! s:escape_query(query)
     return l:result
 endfunction
 
-function! g:WWW_Search(search_url, query) abort
-    let l:arg = shellescape(substitute(a:search_url, g:www_search_terms_pattern, s:escape_query(a:query), 'g'), 1)
+function! g:WWW_Search(search_engine_url, query) abort
+    let l:arg = shellescape(substitute(a:search_engine_url, g:www_search_terms_pattern, s:escape_query(a:query), 'g'), 1)
                 \ .. ' > /dev/null 2>&1'
 
     let l:browser_cmd = ''
@@ -63,10 +63,8 @@ command! -nargs=1 DDGSearch call g:DDGSearch(<f-args>)
 
 function! s:DDGSearchV() abort
     let l:old_unnamed_reg = getreginfo('"')
-    let l:old_reg = getreginfo(v:register)
-    noautocmd normal! ygv
-    call g:DDGSearch(getreg(v:register))
-    call setreg(v:register, l:old_reg)
+    noautocmd normal! ""ygv
+    call g:DDGSearch(getreg('"'))
     call setreg('"', l:old_unnamed_reg)
 endfunction
 
