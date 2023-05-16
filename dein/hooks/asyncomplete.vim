@@ -27,7 +27,7 @@ function! s:current_buffer_completor(opt, ctx) abort
     " 補完を開始する位置
     let l:start_column = l:cursor_column - l:keyword_length
 
-    call timer_start(400, {_ -> asyncomplete#complete(a:opt['name'], a:ctx, l:start_column, s:current_buffer_matches)})
+    call asyncomplete#complete(a:opt['name'], a:ctx, l:start_column, s:current_buffer_matches)
 endfunction
 
 autocmd User asyncomplete_setup call asyncomplete#register_source({

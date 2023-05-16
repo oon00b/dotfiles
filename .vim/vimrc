@@ -83,7 +83,7 @@ function! g:MyStatusLine() abort
                 \ , "^\\v[sS\<C-S>]": 'Select'
                 \ , '^i': 'Insert'
                 \ , '^R': 'Replace'
-                \ , '^c': 'CmdLine'
+                \ , '^c': 'Command'
                 \ , '^t': 'Terminal'
                 \ }
 
