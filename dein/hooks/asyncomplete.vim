@@ -1,5 +1,4 @@
 " hook_source {{{
-
 let g:asyncomplete_auto_completeopt = 0
 
 " 保管候補のリスト
@@ -10,7 +9,7 @@ function! s:set_current_buffer_matches() abort
                 \ getline(1, '$')
                 \ ->join("\n")
                 \ ->split('\v[^[:keyword:]]')
-                \ ->map({_, word -> {'word':word, 'dup': 0}})
+                \ ->map({_, word -> {'word': word, 'dup': 0, 'menu': 'buffer'}})
 endfunction
 
 " 現在のバッファから単語を抽出し、保管候補として表示する。
@@ -37,5 +36,4 @@ autocmd User asyncomplete_setup call asyncomplete#register_source({
     \ , 'on_event': {_name, _ctx, _event, -> s:set_current_buffer_matches()}
     \ , 'completor': function('s:current_buffer_completor')
     \ })
-
 " }}}

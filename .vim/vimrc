@@ -1,5 +1,9 @@
 set encoding=utf-8
 
+augroup vimrc
+    autocmd!
+augroup END
+
 set nolangremap
 
 set backspace=indent,eol,start
@@ -41,6 +45,8 @@ endif
 
 cnoremap <Left>  <Space><Bs><Left>
 cnoremap <Right> <Space><Bs><Right>
+
+cnoremap <expr> <CR> pumvisible() ? "\<Space>\<BS>" : "\<CR>"
 
 " <https://gist.github.com/XVilka/8346728>
 if has('termguicolors') && expand('$COLORTERM') =~# '\v(truecolor|24bit)'
@@ -176,11 +182,11 @@ let g:netrw_keppj = ''
 if !has('nvim')
     runtime ftplugin/man.vim
     set keywordprg=:Man
-    autocmd FileType man setlocal nolist nonumber norelativenumber noswapfile
+    autocmd vimrc FileType man setlocal nolist nonumber norelativenumber noswapfile
 
     packadd! matchit
 endif
-autocmd FileType man nmap <buffer> <2-LeftMouse> K
+autocmd vimrc FileType man nmap <buffer> <2-LeftMouse> K
 
 " dein.vim <https://github.com/Shougo/dein.vim>
 let s:dein_conf = (exists('$XDG_CONFIG_HOME') ? expand('$XDG_CONFIG_HOME') : expand('$HOME/.config')) .. '/dein/dein_conf.vim'
@@ -197,7 +203,7 @@ if executable('fcitx5-remote') == 1
         silent! !fcitx5-remote -c
     endfunction
 
-    autocmd InsertLeavePre * call s:DisableInputMethod()
+    autocmd vimrc InsertLeavePre * call s:DisableInputMethod()
 endif
 
 set nomodeline
