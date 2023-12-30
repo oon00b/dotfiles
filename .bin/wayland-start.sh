@@ -15,9 +15,6 @@ export SDL_IM_MODULE="fcitx"
 export QT_QPA_PLATFORM="wayland"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
-# alacrittyでは、バックエンドがwaylandだとIMEの変換候補が出ないため、代わりにxwaylandを使う
-export WINIT_UNIX_BACKEND="x11"
-
 # firefoxをwaylandで動かすための設定
 export MOZ_ENABLE_WAYLAND="1"
 
