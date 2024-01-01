@@ -9,7 +9,7 @@ set $right l
 # alacrittyでは、バックエンドがwaylandだとIMEの変換候補が出ないため、代わりにxwaylandを使う
 set $term "WAYLAND_DISPLAY= alacritty"
 set $browser firefox
-set $launcher "LAUNCHER_MODE=enable $term"
+set $launcher "LAUNCHER_MODE=enable "$term
 
 set $focused_border    #3c3c3c
 set $focused_bg        #3c3c3c
