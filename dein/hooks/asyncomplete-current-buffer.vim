@@ -1,6 +1,3 @@
-" hook_source {{{
-let g:asyncomplete_auto_completeopt = 0
-
 " 保管候補のリスト
 let s:current_buffer_matches = []
 
@@ -29,11 +26,10 @@ function! s:current_buffer_completor(opt, ctx) abort
     call asyncomplete#complete(a:opt['name'], a:ctx, l:start_column, s:current_buffer_matches)
 endfunction
 
-autocmd User asyncomplete_setup call asyncomplete#register_source({
+call asyncomplete#register_source({
     \ 'name': 'current_buffer'
     \ , 'allowlist': ['*']
     \ , 'events': ['TextChangedI']
     \ , 'on_event': {_name, _ctx, _event, -> s:set_current_buffer_matches()}
     \ , 'completor': function('s:current_buffer_completor')
     \ })
-" }}}

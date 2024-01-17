@@ -192,6 +192,30 @@ autocmd vimrc FileType man nmap <buffer> <2-LeftMouse> K
 let s:dein_conf = (exists('$XDG_CONFIG_HOME') ? expand('$XDG_CONFIG_HOME') : expand('$HOME/.config')) .. '/dein/dein_conf.vim'
 source `=s:dein_conf`
 
+" markdownのコードブロックにシンタックスハイライトを効かせる
+let g:markdown_fenced_languages = [
+    \ 'sh'
+    \ , 'bash=sh'
+    \ , 'zsh=sh'
+    \ , 'awk'
+    \ , 'c=cpp'
+    \ , 'cpp'
+    \ , 'haskell'
+    \ , 'hs=haskell'
+    \ , 'javascript=typescript'
+    \ , 'js=typescript'
+    \ , 'jsx=typescriptreact'
+    \ , 'typescript'
+    \ , 'ts=typescript'
+    \ , 'tsx=typescriptreact'
+    \ , 'json=typescript'
+    \ , 'yaml'
+    \ , 'css=scss'
+    \ , 'scss'
+    \ , 'vim'
+    \ , 'vimscript=vim'
+    \]
+
 " keybind
 noremap! <C-A> <S-Left>
 noremap! <C-Z> <S-Right>

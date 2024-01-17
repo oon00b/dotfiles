@@ -16,7 +16,7 @@ augroup dein-hook_asyncomplete-omni.vim
     autocmd Filetype vim let &l:omnifunc = expand('<SID>') .. 'vim_cmdline_omni'
 augroup END
 
-autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
 \ 'name': 'omni'
 \ , 'allowlist': ['*']
 \ , 'blocklist': ['c', 'cpp', 'html']
