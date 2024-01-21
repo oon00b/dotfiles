@@ -97,12 +97,6 @@ endfunction
 
 augroup dein_conf
     autocmd!
-    autocmd BufWinEnter * call autocmd_add([{
-                \ 'event': 'InsertEnter'
-                \ , 'group': 'dein_conf'
-                \ , 'bufnr': bufnr()
-                \ , 'cmd': 'call s:setup_completer()'
-                \, 'once': v:true
-                \}])
+    autocmd InsertEnter * ++once call s:setup_completer()
 augroup END
 
