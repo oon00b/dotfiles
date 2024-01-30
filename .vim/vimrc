@@ -214,6 +214,8 @@ let g:markdown_fenced_languages = [
     \ , 'scss'
     \ , 'vim'
     \ , 'vimscript=vim'
+    \ , 'xml'
+    \ , 'html'
     \]
 
 " keybind
