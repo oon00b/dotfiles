@@ -3,10 +3,6 @@ let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_float_insert_mode_enabled = 0
-let g:lsp_inlay_hints_enabled = 1
-let g:lsp_inlay_hints_mode = {
-            \ 'normal': ['curline']
-            \}
 let g:lsp_signature_help_enabled = 0
 
 augroup hook_vim_lsp
