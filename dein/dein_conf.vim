@@ -61,12 +61,6 @@ if dein#min#load_state(s:dein_base)
                 \ , 'on_source': ['asyncomplete.vim']
                 \})
 
-    call dein#add('FuDesign2008/asyncomplete-smart-fuzzy.vim'
-                \ , {
-                \ 'lazy': v:true
-                \ , 'on_source': ['asyncomplete.vim']
-                \})
-
     call dein#add('yami-beta/asyncomplete-omni.vim'
                 \ , {
                 \ 'hooks_file': s:dein_hooks_dir .. '/asyncomplete-omni.vim'
