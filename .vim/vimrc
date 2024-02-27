@@ -122,11 +122,7 @@ set scrolloff=5
 set report=0
 set shortmess=aoOc
 
-if has('osxdarwin')
-    set clipboard=unnamed
-else
-    set clipboard=unnamedplus
-endif
+set clipboard=unnamed,unnamedplus
 
 set mouse=a
 if !has('nvim')
@@ -138,7 +134,33 @@ if !has('nvim')
 endif
 
 set mousemodel=popup_setpos
-aunmenu PopUp
+if !has('nvim') && !has('gui_running')
+    aunmenu PopUp
+    vnoremenu PopUp.Copy y
+
+    if $WAYLAND_DISPLAY != '' && executable('wl-copy') && executable('wl-paste')
+        set clipboard^=exclude:*
+
+        autocmd vimrc TextYankPost * call system(
+                    \ 'wl-copy'
+                    \ , v:event['regcontents']
+                    \)
+
+        function! s:sync_clipboard() abort
+            noautocmd call setreg('', system('wl-paste --no-newline'))
+            return ""
+        endfunction
+
+        noremap <expr> p <SID>sync_clipboard() .. 'p'
+        noremap <expr> P <SID>sync_clipboard() .. 'P'
+
+        amenu PopUp.Paste <Cmd>call <SID>sync_clipboard()<CR><Cmd>normal! gP<CR>
+        vmenu PopUp.Paste <Cmd>call <SID>sync_clipboard()<CR>gP
+    else
+        anoremenu PopUp.Paste <Cmd>normal! gP<CR>
+        vnoremenu PopUp.Paste gP
+    endif
+endif
 vnoremenu PopUp.Search\ on\ 'keywordprg' K
 
 set notimeout
