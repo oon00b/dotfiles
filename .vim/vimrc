@@ -148,10 +148,10 @@ if !has('nvim') && !has('gui_running')
 
         function! s:sync_clipboard() abort
             const l:reg = getreg('')
-            const l:clipboard = system('wl-paste')
+            const l:clipboard = system('wl-paste --no-newline')
 
-            if l:reg != l:clipboard
-                noautocmd call setreg('', system('wl-paste --no-newline'))
+            if l:reg != l:clipboard .. "\n"
+                noautocmd call setreg('', l:clipboard)
             endif
 
             return ""
