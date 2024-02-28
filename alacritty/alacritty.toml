@@ -43,9 +43,6 @@ WINIT_X11_SCALE_FACTOR = "1"
 [font]
 size = 14
 
-[font.offset]
-y = 5
-
 [[keyboard.bindings]]
 action = "CreateNewWindow"
 key = "N"

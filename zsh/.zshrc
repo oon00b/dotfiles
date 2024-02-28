@@ -107,6 +107,22 @@ my_chpwd_autols()
 }
 add-zsh-hook -Uz chpwd my_chpwd_autols
 
+# footのspawn-terminalを動作させるのに必要
+# <https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory>
+if [[ "${TERM}" =~ "foot" ]] ; then
+    function osc7-pwd() {
+        emulate -L zsh # also sets localoptions for us
+        setopt extendedglob
+        local LC_ALL=C
+        printf '\e]7;file://%s%s\e\' "${HOST}" "${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}"
+    }
+
+    function chpwd-osc7-pwd() {
+        (( ZSH_SUBSHELL )) || osc7-pwd
+    }
+    add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+fi
+
 # OSC 2 ; Pt BEL (change window title to Pt)
 # <https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands>
 if [[ "${TERM}" =~ "xterm|konsole|alacritty|tmux|screen|st|foot" ]] ; then
