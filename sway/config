@@ -6,7 +6,6 @@ set $down j
 set $up k
 set $right l
 
-# alacrittyでは、バックエンドがwaylandだとIMEの変換候補が出ないため、代わりにxwaylandを使う
 set $term "foot"
 set $browser firefox
 set $launcher "LAUNCHER_MODE=enable "$term
