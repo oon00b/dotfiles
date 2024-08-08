@@ -7,25 +7,25 @@ set $up k
 set $right l
 
 # alacrittyでは、バックエンドがwaylandだとIMEの変換候補が出ないため、代わりにxwaylandを使う
-set $term "WAYLAND_DISPLAY= alacritty"
+set $term "foot"
 set $browser firefox
 set $launcher "LAUNCHER_MODE=enable "$term
 
-set $focused_border    #3c3c3c
-set $focused_bg        #3c3c3c
+set $focused_border    #888888
+set $focused_bg        #000000
 set $focused_fg        #bbbbbb
 set $focused_indicator #888888
 
 set $unfocused_border    #000000
 set $unfocused_bg        #000000
-set $unfocused_fg        #8c8c8c
+set $unfocused_fg        #888888
 set $unfocused_indicator #000000
 
 set $font monospace 11
 font pango:$font
 
 title_align center
-for_window [shell=".*"] title_format %title <span underline="single" text_transform="uppercase">@%shell</span>
+for_window [all] title_format %title <span underline="single" text_transform="uppercase">@%shell</span>
 
 #                       <border>          <background>  <text>        <indicator>
 client.focused          $focused_border   $focused_bg   $focused_fg   $focused_indicator
@@ -40,11 +40,11 @@ bar {
     status_command $status_cmd
 
     colors {
-        statusline $unfocused_fg
-        background $unfocused_bg
+        statusline $focused_fg
+        background $focused_bg
         #                  <border>          <background>  <text>
         focused_workspace  $focused_border   $focused_bg   $focused_fg
-        inactive_workspace $unfocused_border $unfocused_bg $unfocused_fg
+        inactive_workspace $unfocused_border $focused_bg   $unfocused_fg
     }
 }
 
