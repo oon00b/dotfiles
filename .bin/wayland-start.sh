@@ -18,4 +18,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 # firefoxをwaylandで動かすための設定
 export MOZ_ENABLE_WAYLAND="1"
 
+# gvim
+export GVIM_ENABLE_WAYLAND="1"
+
 exec sway
