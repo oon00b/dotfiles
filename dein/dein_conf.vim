@@ -29,9 +29,6 @@ if dein#min#load_state(s:dein_base)
                 \ , 'colorscheme solarized8_flat'
                 \ ], "\n")})
 
-    call dein#add('https://gitlab.com/HiPhish/info.vim.git'
-                \ , {'hook_add': 'autocmd FileType info setlocal nonumber norelativenumber'})
-
     call dein#add('prabirshrestha/vim-lsp'
                 \ , {
                 \ 'hooks_file': s:dein_hooks_dir .. '/vim-lsp.vim'

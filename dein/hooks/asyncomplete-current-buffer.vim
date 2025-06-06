@@ -2,6 +2,12 @@
 let s:current_buffer_matches = []
 
 function! s:set_current_buffer_matches() abort
+    " 1MiB 以上のバッファでは無効化
+    if wordcount()["bytes"] > 1024 * 1024
+        let s:current_buffer_matches = []
+        return
+    endif
+
     let s:current_buffer_matches =
                 \ getline(1, '$')
                 \ ->join("\n")
