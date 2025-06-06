@@ -41,7 +41,7 @@ export WORDCHARS="!#$%^~\\@+-=_*?"
 export HISTFILE="${ZDOTDIR}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTORY_IGNORE='(*[[:space:]]|)(rm|mv|cp|ln)([[:space:]]*|)'
+export HISTORY_IGNORE='(*[[:space:];&|({]|)(rm|mv|cp|ln)([[:space:];&|})]*|)'
 
 export EDITOR="vim"
 export VISUAL="vim"
