@@ -18,6 +18,8 @@ setopt MARK_DIRS
 
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_NO_FUNCTIONS
+# スペースで始まるコマンドは保存しない
+setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 setopt SHARE_HISTORY
@@ -39,6 +41,7 @@ export WORDCHARS="!#$%^~\\@+-=_*?"
 export HISTFILE="${ZDOTDIR}/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
+export HISTORY_IGNORE='(*[[:space:]]|)(rm|mv|cp|ln)([[:space:]]*|)'
 
 export EDITOR="vim"
 export VISUAL="vim"
@@ -93,34 +96,38 @@ zstyle ":vcs_info:*" stagedstr "[%F{yellow}S%f]"
 zstyle ":vcs_info:*" unstagedstr "[%F{red}U%f]"
 zstyle ":vcs_info:*" formats "%%F{magenta}%b%%f@%%F{blue}%r%%f%c%u"
 
-my_precmd_setrprompt()
-{
+my_precmd_setrprompt() {
     vcs_info
     # branch@repo[staged][unstaged]
     RPS1="${vcs_info_msg_0_}"
 }
 add-zsh-hook -Uz precmd my_precmd_setrprompt
 
-my_chpwd_autols()
-{
+my_chpwd_autols() {
     ls
 }
 add-zsh-hook -Uz chpwd my_chpwd_autols
 
+my_ignore_history() {
+    emulate -L zsh
+    [[ "${1}" != ${~HISTORY_IGNORE} ]]
+}
+add-zsh-hook -Uz zshaddhistory my_ignore_history
+
 # footのspawn-terminalを動作させるのに必要
 # <https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory>
 if [[ "${TERM}" =~ "foot" ]] ; then
-    function osc7-pwd() {
+    osc7_pwd() {
         emulate -L zsh # also sets localoptions for us
         setopt extendedglob
         local LC_ALL=C
         printf '\e]7;file://%s%s\e\' "${HOST}" "${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}"
     }
 
-    function chpwd-osc7-pwd() {
-        (( ZSH_SUBSHELL )) || osc7-pwd
+    chpwd_osc7_pwd() {
+        (( ZSH_SUBSHELL )) || osc7_pwd
     }
-    add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+    add-zsh-hook -Uz chpwd chpwd_osc7_pwd
 fi
 
 # OSC 2 ; Pt BEL (change window title to Pt)
