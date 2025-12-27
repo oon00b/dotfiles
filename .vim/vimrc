@@ -219,13 +219,5 @@ noremap! <C-Z> <S-Right>
 noremap! <C-B> <Home>
 noremap! <C-E> <End>
 
-if executable('fcitx5-remote') == 1
-    function! s:DisableInputMethod()
-        silent! !fcitx5-remote -c
-    endfunction
-
-    autocmd vimrc InsertLeavePre * call s:DisableInputMethod()
-endif
-
 set nomodeline
 set secure
