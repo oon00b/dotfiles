@@ -20,7 +20,7 @@ if dein#min#load_state(s:dein_base)
         call dein#add('vim-jp/vimdoc-ja')
     endif
 
-    call dein#add('lifepillar/vim-solarized8'
+    call dein#add('https://codeberg.org/lifepillar/vim-solarized8.git'
                 \ , {'hook_add': join([
                 \ 'let g:solarized_italics = 0'
                 \ , 'let g:solarized_visibility = "high"'
