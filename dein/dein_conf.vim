@@ -58,12 +58,6 @@ if dein#min#load_state(s:dein_base)
                 \ , 'on_source': ['asyncomplete.vim']
                 \})
 
-    call dein#add('yami-beta/asyncomplete-omni.vim'
-                \ , {
-                \ 'hooks_file': s:dein_hooks_dir .. '/asyncomplete-omni.vim'
-                \ , 'lazy': v:true
-                \})
-
     call dein#end()
     call dein#save_state()
 endif
@@ -74,20 +68,3 @@ syntax enable
 if dein#check_install()
     call dein#install()
 endif
-
-function! s:setup_completer() abort
-    if exists('g:completer_loaded') || lsp#get_server_status() =~? '\v(running|starting)'
-        return
-    endif
-
-    let g:completer_loaded = 1
-
-    call dein#source('asyncomplete-omni.vim')
-    source `=s:dein_hooks_dir .. '/asyncomplete-current-buffer.vim'`
-endfunction
-
-augroup dein_conf
-    autocmd!
-    autocmd InsertEnter * ++once call s:setup_completer()
-augroup END
-
