@@ -5,8 +5,7 @@ set -u
 # shellcheck disable=SC3040
 set -o pipefail
 
-error_and_exit()
-{
+error_and_exit() {
     cat >&2 << EOF
 volctl.sh get-volume
 volctl.sh set-volume <VOLUME>
@@ -15,14 +14,7 @@ EOF
     exit 1
 }
 
-get_volume()
-{
-    case "$(LC_ALL="C" pactl get-sink-mute @DEFAULT_SINK@)" in
-        (*yes*)
-            printf '%s%%\n' '-'
-            return
-    esac
-
+get_volume_value() {
     pactl get-sink-volume @DEFAULT_SINK@ \
     | awk '
     BEGIN {volume = 0}
@@ -34,28 +26,28 @@ get_volume()
             }
         }
     }
-    END {printf("%s%%\n", volume)}'
+    END {printf("%s", volume)}'
 }
 
-set_volume()
-{
-    pactl set-sink-volume @DEFAULT_SINK@ "${1}"
-
-    vol="$(get_volume)"
-    vol="${vol%%"%"}"
-
-    case "${vol}" in
-        (-)
-            return ;;
+get_volume() {
+    case "$(LC_ALL="C" pactl get-sink-mute @DEFAULT_SINK@)" in
+        (*yes*)
+            printf '%s%%\n' '-'
+            return
     esac
 
-    if test "${vol}" -gt 100 ; then
+    printf '%s%%\n' "$(get_volume_value)"
+}
+
+set_volume() {
+    pactl set-sink-volume @DEFAULT_SINK@ "${1}"
+
+    if test "$(get_volume_value)" -gt 100 ; then
         pactl set-sink-volume @DEFAULT_SINK@ "100%"
     fi
 }
 
-set_mute()
-{
+set_mute() {
     pactl set-sink-mute @DEFAULT_SINK@ "${1}"
 }
 
