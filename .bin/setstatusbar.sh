@@ -11,14 +11,14 @@ else
 fi
 
 status_commands=""
-add_status_commands(){
+add_status_commands() {
     for comm in ${@} ; do
         status_commands="${status_commands} ${comm}"
     done
     status_commands=${status_commands##" "}
 }
 
-audio_status(){
+audio_status() {
     pulse_sink="$(pactl get-default-sink)"
     pulse_volume="$(volctl.sh get-volume)"
     echo "${pulse_sink}:${pulse_volume}"
@@ -26,7 +26,7 @@ audio_status(){
 add_status_commands "audio_status"
 
 battery_path="/sys/class/power_supply/BAT0"
-battery_status(){
+battery_status() {
     capacity="$(cat "${battery_path}/capacity")"
     is_charging="$(grep -i -s -q "^Charging$" "${battery_path}/status" && echo "+" || echo "-")"
     echo "BAT:${capacity}%[${is_charging}]"
@@ -35,21 +35,26 @@ battery_status(){
 test -d "${battery_path}" && add_status_commands "battery_status"
 
 wifi_interface_path="/sys/class/net/wlan0"
-wifi_status(){
+wifi_status() {
     operational_state="$(cat "${wifi_interface_path}/operstate")"
     echo "wl:${operational_state}"
 }
 test -d ${wifi_interface_path} && add_status_commands "wifi_status"
 
-date_status(){
-    date "+%F(%a) %H:%M"
+date_status() {
+    case "${LC_ALL:-"${LC_TIME:-"${LANG:-""}"}"}" in
+        ("ja_JP"*)
+            date '+%EY %F(%a) %H:%M' ;;
+        (*)
+            date "+%F(%a) %H:%M"
+    esac
 }
 add_status_commands "date_status"
 
 echo '{"version":1}'
 echo '['
 
-send_status(){
+send_status() {
     body="[{}"
     for comm in ${status_commands} ; do
         body="${body},$(printf '{"full_text":"%s", "separator":true}' "$(eval "${comm}")")"
